@@ -25,17 +25,17 @@ export default class App extends Component {
 
     deleteItem = (id) => {
         this.setState(({ todoData }) => {
-            const idx = this.state.todoData.findIndex( (el) => el.id === id )
+            const newArray = this.state.todoData.filter( (item) => item.id !== id )
 
             // [a, b, c, d, e]
             // [a, b,    d, e]
-            const before = todoData.slice(0, idx)
-            console.log(before)
-            const after = todoData.slice(idx + 1)
-            console.log(after)
-            const newArray = [
-                ...before,
-                ...after]
+            // const before = todoData.slice(0, idx)
+            // console.log(before)
+            // const after = todoData.slice(idx + 1)
+            // console.log(after)
+            // const newArray = [
+            //     ...before,
+            //     ...after]
 
             return {
                 todoData: newArray
