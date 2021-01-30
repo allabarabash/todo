@@ -25,7 +25,7 @@ export default class App extends Component {
 
     deleteItem = (id) => {
         this.setState(({ todoData }) => {
-            const newArray = this.state.todoData.filter( (item) => item.id !== id )
+            const newArray = this.state.todoData.filter( item => item.id !== id )
 
             // [a, b, c, d, e]
             // [a, b,    d, e]
@@ -67,6 +67,14 @@ export default class App extends Component {
         })
     }
 
+    onToggleImportant = (id) => {
+        console.log('onToggleImportant', id)
+    }
+
+    onToggleDone = (id) => {
+        console.log('onToggleDone', id)
+    }
+
     render () {
         return (
             <div className="todo-app">
@@ -78,7 +86,9 @@ export default class App extends Component {
 
                 <TodoList
                     todos={this.state.todoData}
-                    onDeleted={ this.deleteItem }/>
+                    onDeleted={ this.deleteItem }
+                    onToggleImportant = { this.onToggleImportant}
+                    onToggleDone = { this.onToggleDone }/>
 
                     <ItemAddForm onItemAdded={ this.addItem }/>
             </div>
