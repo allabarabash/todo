@@ -12,20 +12,47 @@ export default class App extends Component {
 
     maxId = 100
 
+    createTodoItem = (label) => {
+        return {
+            label: label,
+            important: false,
+            done: false,
+            id: this.maxId++
+
+        }
+    }
+
     state = {
         todoData: [
-            { label: 'Drink Coffee', important: false, id: 1 },
-            { label: 'Make Awesome App', important: false, id: 2 },
-            { label: 'Have a lunch', important: false, id: 3 },
-            { label: 'Свободу Навальному', important: false, id: 4 },
-            { label: 'Парам пам пам', important: false, id: 5 },
-            { label: 'Ещё что-то, забылъ', important: false, id: 6 }
+            this.createTodoItem('Drink cofee'),
+            this.createTodoItem('Make Awesome App'),
+            this.createTodoItem('Have a lunch'),
+            this.createTodoItem('Свободу Навальному'),
+            this.createTodoItem('Шо происходит')
         ]
+    }
+
+    onToggleImportant = (id) => {
+        console.log('id passed: ', id)
+        this.setState( ({todoData}) => {
+            // 1. update object
+            const idx = todoData.findIndex((el) => {
+                el.id === id
+                console.log(el.id)
+                console.log(el.label)
+                console.log('------------')
+            })
+            console.log('Found index: ', idx)
+            // idx = -1,
+            // то есть индекс элемента на который кликаем, не находится в todoData
+
+            // 2. construct new array
+        })
     }
 
     deleteItem = (id) => {
         this.setState(({ todoData }) => {
-            const newArray = this.state.todoData.filter( item => item.id !== id )
+            const newArray = todoData.filter( item => item.id !== id )
 
             // [a, b, c, d, e]
             // [a, b,    d, e]
@@ -45,15 +72,10 @@ export default class App extends Component {
 
     addItem = (text) => {
         // generate id
-        const newItem = {
-            label: text + this.maxId,
-            important: false,
-            id: this.maxId++
-
-        }
+        const newItem = this.createTodoItem(text)
         console.log(newItem)
         // add element to the array
-        this.setState(({ todoData }) => {
+        this.setState(({todoData}) => {
             // new state;
             // dont change the state (class variable todoData itself)
             // not return todoData.push(newItem)
@@ -67,9 +89,6 @@ export default class App extends Component {
         })
     }
 
-    onToggleImportant = (id) => {
-        console.log('onToggleImportant', id)
-    }
 
     onToggleDone = (id) => {
         console.log('onToggleDone', id)
