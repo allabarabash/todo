@@ -31,9 +31,8 @@ export default class ItemAddForm extends Component {
                        value={this.state.label}
                        placeholder="What needs to be done" />
                 <button
-                    className="btn btn-outline-secondary"
-                    onClick={() => this.props.onItemAdded('Hello world')}>
-                    New Item
+                    className="btn btn-outline-secondary">
+                    Add Item
                 </button>
             </form>
         )
