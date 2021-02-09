@@ -12,9 +12,9 @@ export default class App extends Component {
 
     maxId = 100
 
-    createTodoItem = (label) => {
+    createTodoItem(label)  {
         return {
-            label: label,
+            label,
             important: false,
             done: false,
             id: this.maxId++
@@ -35,18 +35,24 @@ export default class App extends Component {
     onToggleImportant = (id) => {
         console.log('id passed: ', id)
         this.setState( ({todoData}) => {
+
+            const idx = todoData.findIndex(el => el.id === id) // lambda function
+
             // 1. update object
-            const idx = todoData.findIndex((el) => {
-                el.id === id
-                console.log(el.id)
-                console.log(el.label)
-                console.log('------------')
-            })
-            console.log('Found index: ', idx)
-            // idx = -1,
-            // то есть индекс элемента на который кликаем, не находится в todoData
+            const oldItem = todoData[idx]
+            const newItem = {... oldItem, important: !oldItem.important}
+
 
             // 2. construct new array
+            const newArray = [
+                ... todoData.slice(0, idx),
+                newItem,
+                ... todoData.slice(idx + 1)
+            ]
+
+            return {
+                todoData: newArray
+            }
         })
     }
 
