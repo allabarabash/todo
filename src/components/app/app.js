@@ -65,7 +65,6 @@ export default class App extends Component {
     addItem = (text) => {
         // generate id
         const newItem = this.createTodoItem(text)
-        console.log(newItem)
         // add element to the array
         this.setState(({todoData}) => {
             // new state;
@@ -127,7 +126,8 @@ export default class App extends Component {
                     onToggleImportant = { this.onToggleImportant}
                     onToggleDone = { this.onToggleDone }/>
 
-                    <ItemAddForm onItemAdded={ this.addItem }/>
+                    <ItemAddForm onItemAdded={ this.addItem }
+                                 blablup={3}/>
             </div>
         )
 
