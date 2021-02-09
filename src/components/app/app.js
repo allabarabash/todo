@@ -97,13 +97,40 @@ export default class App extends Component {
 
 
     onToggleDone = (id) => {
-        console.log('onToggleDone', id)
+        console.log('id passed: ', id)
+        this.setState( ({todoData}) => {
+
+            const idx = todoData.findIndex(el => el.id === id) // lambda function
+
+            // 1. update object
+            const oldItem = todoData[idx]
+            const newItem = {... oldItem, done: !oldItem.done}
+
+
+            // 2. construct new array
+            const newArray = [
+                ... todoData.slice(0, idx),
+                newItem,
+                ... todoData.slice(idx + 1)
+            ]
+
+            return {
+                todoData: newArray
+            }
+        })
     }
 
     render () {
+
+        const { todoData } = this.state
+
+        const doneCount = todoData
+                                .filter(el => el.done === true)
+                                .length
+        const todoCount = todoData.length - doneCount
         return (
             <div className="todo-app">
-                <AppHeader toDo={1} done={3} />
+                <AppHeader toDo={todoCount} done={doneCount} />
                 <div className="top-panel d-flex">
                     <SearchPanel />
                     <ItemStatusFilter />
