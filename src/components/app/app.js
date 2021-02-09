@@ -36,22 +36,8 @@ export default class App extends Component {
         console.log('id passed: ', id)
         this.setState( ({todoData}) => {
 
-            const idx = todoData.findIndex(el => el.id === id) // lambda function
-
-            // 1. update object
-            const oldItem = todoData[idx]
-            const newItem = {... oldItem, important: !oldItem.important}
-
-
-            // 2. construct new array
-            const newArray = [
-                ... todoData.slice(0, idx),
-                newItem,
-                ... todoData.slice(idx + 1)
-            ]
-
             return {
-                todoData: newArray
+                todoData: this.toggleProperty(todoData, id, 'important')
             }
         })
     }
@@ -95,27 +81,26 @@ export default class App extends Component {
         })
     }
 
+    toggleProperty(arr, id, propName) {
+        const idx = arr.findIndex(el => el.id === id) // lambda function
+
+        // 1. update object
+        const oldItem = arr[idx]
+        const newItem = {... oldItem, [propName]: !oldItem[propName]}
+
+        // 2. construct new array
+        return [
+            ... arr.slice(0, idx),
+            newItem,
+            ... arr.slice(idx + 1)
+        ]
+    }
 
     onToggleDone = (id) => {
         console.log('id passed: ', id)
         this.setState( ({todoData}) => {
-
-            const idx = todoData.findIndex(el => el.id === id) // lambda function
-
-            // 1. update object
-            const oldItem = todoData[idx]
-            const newItem = {... oldItem, done: !oldItem.done}
-
-
-            // 2. construct new array
-            const newArray = [
-                ... todoData.slice(0, idx),
-                newItem,
-                ... todoData.slice(idx + 1)
-            ]
-
             return {
-                todoData: newArray
+                todoData: this.toggleProperty(todoData, id, 'done')
             }
         })
     }
