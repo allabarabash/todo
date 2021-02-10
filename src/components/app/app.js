@@ -14,14 +14,14 @@ export default class App extends Component {
 
     state = {
         todoData: [
-            this.createTodoItem('Drink cofee'),
-            this.createTodoItem('Make Awesome App'),
+            this.createTodoItem('Eat a pie'),
+            this.createTodoItem('Eat a soup'),
             this.createTodoItem('Have a lunch'),
-            this.createTodoItem('Свободу Навальному'),
+            this.createTodoItem('Drink banana shake'),
             this.createTodoItem('Шо происходит')
         ],
         term: '',
-        filter: 'all' // active, all, done
+        filterButton: '' // active, all, done
     }
 
     createTodoItem(label)  {
@@ -105,8 +105,8 @@ export default class App extends Component {
         })
     }
 
-    filter(items, filter) {
-        switch(filter) {
+    filterTodos(items, filterButton) {
+        switch(filterButton) {
             case 'all':
                 return items;
             case 'active':
@@ -122,15 +122,15 @@ export default class App extends Component {
         this.setState({ term })
     }
 
-    onFilterChange = (filter) => {
-        this.setState({ filter })
+    onFilterChange = (filterButton) => {
+        this.setState({ filterButton })
     }
 
     render () {
 
-        const { todoData, term, filter } = this.state
+        const { todoData, term, filterButton } = this.state
 
-        const visibleItems = this.filter(this.search(todoData, term), filter)
+        const visibleItems = this.filterTodos(this.search(todoData, term), filterButton)
 
         const doneCount = todoData
                                 .filter(el => el.done === true)
@@ -142,7 +142,7 @@ export default class App extends Component {
                 <div className="top-panel d-flex">
                     <SearchPanel onSearchChange={this.onSearchChange}/>
                     <ItemStatusFilter
-                        filter={filter}
+                        filterButton={filterButton}
                         onFilterChange={this.onFilterChange}/>
                 </div>
 
