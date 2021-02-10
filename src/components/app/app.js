@@ -16,15 +16,17 @@ export default class App extends Component {
         todoData: [
             this.createTodoItem('Eat a pie'),
             this.createTodoItem('Eat a soup'),
+            this.createTodoItem('Eat more food'),
             this.createTodoItem('Have a lunch'),
             this.createTodoItem('Drink banana shake'),
+            this.createTodoItem('Свободу Навальному'),
             this.createTodoItem('Шо происходит')
         ],
         term: '',
         filterButton: '' // active, all, done
     }
 
-    createTodoItem(label)  {
+    createTodoItem(label) {
         return {
             label,
             important: false,
